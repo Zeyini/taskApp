@@ -10,6 +10,7 @@ function AboutPage() {
     <div className="container">
       <div>
         <p>This about page is for anyone to read!</p>
+        <p> Hi friends, thank you fall for being here</p>
       </div>
     </div>
   );

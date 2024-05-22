@@ -6,9 +6,20 @@ import React from 'react';
 // or even care what the redux state is
 
 function InfoPage() {
+
+  // get activites and mount
+  const getActivities = () => {
+    dispatch({
+      type: 'GET_ACTIVITES'
+    })
+  }
+
   return (
     <div className="container">
       <p>Info Page</p>
+      <p>wohooo</p>
+
+      
     </div>
   );
 }

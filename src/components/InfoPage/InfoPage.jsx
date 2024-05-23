@@ -10,14 +10,14 @@ import { useEffect, useState } from 'react';
 function InfoPage() {
 
   useEffect(() => {
-    getActivities()
+    getActivities() // on mount get data from db!
   }, [])
 
   const dispatch = useDispatch();
   const activitiesItems = useSelector(store => store.activities.activities); 
-  console.log('CliENT SIDE ARRAY RECIEVED',activitiesItems)
+  // console.log('CliENT SIDE ARRAY RECIEVED',activitiesItems)
 
-  // get activites and mount
+  // calling the get function to run
   const getActivities = () => {
     dispatch({
       type: 'GET_ACTIVITES'
@@ -27,33 +27,30 @@ function InfoPage() {
   return (
     <div className="container">
       <p>Info Page</p>
-      <p>wohooo</p>
-      <h3>{JSON.stringify(activitiesItems)}</h3>
+      <h1>You got this </h1>
+      {/* render .MAP code below  */}
       <div>
-        {activitiesItems.map(item => {
-          return (
-            <>
-            <span key={item.id}>{item.description}<br>
-            </br> {item.item} <br>
-            </br><br/>
-            </span>
-            <div>
-            <div>{item.username}</div>
-            <div>{item.activitname}</div>
-            <div>{item.date}</div>
-            <div>{item.completion_status}</div>
-            <div>{item.notes}</div>
-            </div>
-            
+        {/* <h3>{JSON.stringify(activitiesItems)}</h3> */}
+    {activitiesItems.map(item => (
+      <div key={item.id}>
+        {/* {console.log(JSON.stringify(item.id))} */}
+        <span><br />{item.item}<br /></span>
+        <div>
+          <div>{item.username}</div>
+          <div>{item.activityname}</div> 
+          <div>{item.date}</div>
+          <div>{item.completion_status}</div>
+          <div>{item.notes}</div>
+          <div>{item.progress}</div>
+        </div>
 
-
-            
-            </>
-          )
-        })}
       </div>
+    ))}
+  </div>
 
+  
     </div>
+    
   );
 }
 

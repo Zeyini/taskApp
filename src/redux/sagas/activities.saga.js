@@ -29,6 +29,7 @@ function* postactivities(action) {
         data: action.payload,
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
+        
       };
       // the config includes credentials which
       // allow the server session to recognize the user
@@ -46,10 +47,35 @@ function* postactivities(action) {
     }
 }
 
+//update saga
+function* updateprogress(action) {
+  try {
+      const config = {
+        data: action.payload,
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+      // the config includes credentials which
+      // allow the server session to recognize the user
+      // If a user is logged in, this will return their information
+      // from the server session (req.user)
+      const response = yield axios.put('/api/actvitiesRouter', config);
+      // now that the session has given us a user object
+      // with an id and username set the client-side user object to let
+      // the client-side code know the user is logged in
+      console.log('In put saga, response: ', response.data);
+      yield put({ type: 'GET_ACTIVITES', payload: response.data }); // bring dom in sync
+      // yield put({ type: 'SETPOST_ACTIVITIES', payload: response.data }); // capture user inputs activityname/notes
+    } catch (error) {
+      console.log('Shelf POST failed', error);
+    }
+}
+
 
 function* activitiesSaga() {
     yield takeLatest('GET_ACTIVITES', getActivities);
     yield takeLatest('ADD_INPUT_POST', postactivities);
+    yield takeLatest('UPDATE_PROGRESS', updateprogress);
   }
   
 

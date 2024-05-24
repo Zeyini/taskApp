@@ -3,6 +3,7 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import activities from './activities.reducer'
 import postactivities from './postactivities.reducer'
+import updateProgress from './updateprogress.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
   activities, // contains an array of user activties 
-  postactivities // contains user post of activity name / notes
+  postactivities, // contains user post of activity name / notes
+  updateProgress
 });
 
 export default rootReducer;

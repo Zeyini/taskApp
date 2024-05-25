@@ -126,4 +126,57 @@ router.put("/", rejectUnauthenticated, (req, res) => {
   } //401 unauthorized
 });
 
+//delete route
+router.delete("/", rejectUnauthenticated, (req, res) => {
+  const objectRecieved = req.body;
+  console.log("VALUE of the object", objectRecieved);
+  // terminal view:
+  // VALUE of the object {
+  //   id: 5,
+  //   userid: 14,
+  //   username: 'kuyu',
+  //   activityname: 'sing',
+  //   activitiesid: 5,
+  //   date: '2024-05-25T05:00:00.000Z',
+  //   notes: 'beyonce',
+  //   completion_status: false,
+  //   progress: 3
+  // }
+  // value of the USERID 14
+  const userID = req.user.id;
+  console.log("value of the USERID", userID); // terminal view: value of the USERID 14
+
+  const notes = req.body.notes;
+  console.log("VALUE of the data!", notes); // terminal view: VALUE of the data! happy progress
+  
+  const activitesID = req.body.activitiesid;
+  console.log("value of the ActivitesID", activitesID);
+  
+  if (userID === req.body.userid) {
+    const sqlQuery = `UPDATE "user_activities"
+    SET "notes" = NULL
+    WHERE "user_id" = $1
+    AND "actvities_id" = $2;`
+    pool
+      .query(sqlQuery, [userID, activitesID])
+
+      .then((dbRes) => {
+        console.log("put worked in /api/actvitiesRouter!");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+
+// delete the whole row
+// ` DELETE FROM "user_activities"
+//     WHERE "user_id" = $1 -- Specify the user_id for whom you want to delete the comment
+//     AND "actvities_id" = $2; -- Specify the activities_id for which you want to delete the comment
+//   `
+
 module.exports = router;

@@ -33,7 +33,7 @@ function InfoPage() {
   };
   const handledelete = (item) => {
     dispatch({
-      type: "COMMENT",
+      type: "DELETE NOTE",
       payload: item,
     });
     console.log(item.progress);
@@ -55,7 +55,7 @@ function InfoPage() {
               <br />
             </span>
             <div>
-              <div> writing id = {item.activitiesid}</div>
+              <div> activity id = {item.activitiesid}</div>
               <div>{item.username}</div>
               <div>{item.activityname}</div>
 

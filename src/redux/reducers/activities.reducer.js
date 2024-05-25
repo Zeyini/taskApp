@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-// the recieved data from the db is saved in this reducer
+// the recieved all activites data from the db is saved in this reducer
 const activities = (state = [], action) => {
   switch (action.type) {
     case 'SET_ACTIVITIES':

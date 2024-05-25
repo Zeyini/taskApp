@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { useEffect, useState } from 'react';
 
-function Activityform() {
+function ActivityForm() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
 
@@ -10,6 +10,7 @@ function Activityform() {
   const [Actvitynotes, setActvitynotes] = useState('');
   const [Activityname, setActivityname] = useState('');
 
+  const dispatch = useDispatch(); // use to send dispach to postactivities saga fucntion 
   const handleAddItem = (event) => {
     event.preventDefault();
     dispatch({
@@ -49,4 +50,4 @@ Activity Notes:
 }
 
 // this allows us to use <App /> in index.js
-export default Activityform;
+export default ActivityForm;

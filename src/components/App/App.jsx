@@ -19,7 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import Activityform from '../ActivityForm/ActivityForm';
+import ActivityForm from '../ActivityForm/ActivityForm';
 
 
 import './App.css';
@@ -75,7 +75,7 @@ function App() {
             exact
             path="/activityform"
           >
-            <Activityform />
+            <ActivityForm />
           </ProtectedRoute>
 
 

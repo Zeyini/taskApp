@@ -22,6 +22,7 @@ function InfoPage() {
       type: "GET_ACTIVITES",
     });
   };
+  //dispatching the array of the user to saga and add 1 to value variable progress
   const handleProgress = (item) => {
     item.progress += 1;
     dispatch({
@@ -30,17 +31,24 @@ function InfoPage() {
     });
     console.log(item.progress);
   };
+  const handledelete = (item) => {
+    dispatch({
+      type: "COMMENT",
+      payload: item,
+    });
+    console.log(item.progress);
+  };
 
   return (
     <div className="container">
-      <p>Info Page</p>
+      <p></p>
       <h1>You got this </h1>
       {/* render .MAP code below  */}
       <div>
         {/* <h3>{JSON.stringify(activitiesItems)}</h3> */}
         {activitiesItems.map((item) => (
           <div key={item.id}>
-            {/* {console.log(JSON.stringify(item.id))} */}
+            {/* {console.log(JSON.stringify(item))} */}
             <span>
               <br />
               {item.item}
@@ -53,7 +61,9 @@ function InfoPage() {
 
               <div>{item.date}</div>
               <div>{item.completion_status}</div>
-              <div>{item.notes}</div>
+              <div>{item.notes}
+              <button onClick={() => handledelete(item)}>delete</button>
+              </div>
               <div onClick={() => handleProgress(item)}>{item.progress}</div>
             </div>
           </div>

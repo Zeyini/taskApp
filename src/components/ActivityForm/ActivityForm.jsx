@@ -28,6 +28,7 @@ function ActivityForm() {
 
       {/* to be moved to a form componet  👇*/}
 <form onSubmit={handleAddItem}>
+  
   <label>
 Activity Notes:
     <input type="text" 
@@ -35,6 +36,8 @@ Activity Notes:
            onChange={(e) => setActvitynotes(e.target.value)}
            value={Actvitynotes}/>
            </label>
+
+
            <label>
  Activity Name:
     <input type="text" 

@@ -61,14 +61,18 @@ function InfoPage() {
 
               <div>{item.date}</div>
               <div>{item.completion_status}</div>
+ 
               <div>{item.notes}
               <button onClick={() => handledelete(item)}>delete</button>
               </div>
               <div onClick={() => handleProgress(item)}>{item.progress}</div>
             </div>
           </div>
+
+          
         ))}
       </div>
+   
     </div>
   );
 }

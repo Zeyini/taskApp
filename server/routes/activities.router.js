@@ -12,13 +12,31 @@ const {
 router.get("/", rejectUnauthenticated, (req, res) => {
   console.log("Received a GET request on /");
   sqlText = `
-  SELECT user_activities.id,"user".id as userid,"user".username, activities.name AS activityName, activities.id AS activitiesID, user_activities.date, user_activities.notes, user_activities.completion_status,user_activities.progress
-  FROM "user"
-  JOIN user_activities ON "user".id = user_activities.user_id
-  JOIN activities ON user_activities.actvities_id = activities.id
-  ORDER BY user_activities.id;
-  
-  `;
+  SELECT 
+    
+  user_activities.id,
+  "user".id AS userid,
+  "user".username,
+  activities.id AS activitiesID,
+  activities.name AS activityName,
+  user_activities.date,
+  user_activities.notes,
+  user_activities.completion_status,
+  user_activities.progress,
+  activities.monday_status,
+  activities.tuesday_status,
+  activities.wednesday_status,
+  activities.thursday_status,
+  activities.friday_status,
+  activities.saturday_status,
+  activities.sunday_status
+FROM 
+  "user"
+LEFT JOIN 
+  user_activities ON "user".id = user_activities.user_id
+LEFT JOIN 
+  activities ON user_activities.actvities_id = activities.id
+  ORDER BY user_activities.id; `;
   pool
     .query(sqlText)
     .then((dbRes) => {

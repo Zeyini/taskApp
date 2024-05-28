@@ -62,7 +62,17 @@ function InfoPage() {
               <div>{item.date}</div>
               <div>{item.completion_status}</div>
  
-              <div>{item.notes}
+              <div>{item.notes}</div>
+              <div>Monday Status: {item.monday_status ? 'Completed' : 'Incomplete'}</div>
+      <div>Tuesday Status: {item.tuesday_status ? 'Completed' : 'Incomplete'}</div>
+      <div>Wednesday Status: {item.wednesday_status ? 'Completed' : 'Incomplete'}</div>
+      <div>Thursday Status: {item.thursday_status ? 'Completed' : 'Incomplete'}</div>
+      <div>Friday Status: {item.friday_status ? 'Completed' : 'Incomplete'}</div>
+      <div>Saturday Status: {item.saturday_status ? 'Completed' : 'Incomplete'}</div>
+      <div>Sunday Status: {item.sunday_status ? 'Completed' : 'Incomplete'}
+              
+
+              
               <button onClick={() => handledelete(item)}>delete</button>
               </div>
               <div onClick={() => handleProgress(item)}>{item.progress}</div>

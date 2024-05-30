@@ -191,6 +191,197 @@ router.delete("/", rejectUnauthenticated, (req, res) => {
   } //401 unauthorized
 });
 
+// update status of monday
+router.put("/update-status-monday", rejectUnauthenticated, (req, res) => {
+  const monday_status = req.body.data.monday_status;
+  console.log("value of the Monday STAtus", monday_status);
+  const userID = req.user.id;
+  console.log("value of the USERID", userID);
+  const activitesID = req.body.data.activitiesid;
+  console.log("value of the ActivitesID", activitesID);
+
+  console.log('IN THE UPDATE FUCNTION FOR STATUS')
+
+  if (userID === req.body.data.userid) {
+
+     const sqlQuery = `
+     UPDATE activities
+    SET monday_status = NOT monday_status
+    Where  "user_id" = $1 AND activities.id = $2;
+    `;
+    
+    pool
+      .query(sqlQuery, [userID, activitesID])
+
+      .then((dbRes) => {
+        console.log("Monday status updated successfully");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+// update status of tuesday 
+router.put("/update-status-tuesday", rejectUnauthenticated, (req, res) => {
+  const tuesday_status = req.body.data.tuesday_status;
+  const userID = req.user.id;
+  const activitesID = req.body.data.activitiesid;
+
+  if (userID === req.body.data.userid) {
+    const sqlQuery = `
+     UPDATE activities
+    SET tuesday_status = NOT tuesday_status
+    Where  "user_id" = $1 AND activities.id = $2;
+    `;
+    pool
+      .query(sqlQuery, [userID, activitesID])
+      .then((dbRes) => {
+        console.log("Monday status updated successfully");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+// update status of wednesday 
+router.put("/update-status-wednesday", rejectUnauthenticated, (req, res) => {
+  const wednesday_status = req.body.data.wednesday_status;
+  const userID = req.user.id;
+  const activitesID = req.body.data.activitiesid;
+
+  if (userID === req.body.data.userid) {
+    const sqlQuery = `
+     UPDATE activities
+    SET wednesday_status = NOT wednesday_status
+    Where  "user_id" = $1 AND activities.id = $2;
+    `;
+    pool
+      .query(sqlQuery, [userID, activitesID])
+      .then((dbRes) => {
+        console.log("Monday status updated successfully");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+// update status of thursday 
+router.put("/update-status-thursday", rejectUnauthenticated, (req, res) => {
+  const thursday_status = req.body.data.thursday_status;
+  const userID = req.user.id;
+  const activitesID = req.body.data.activitiesid;
+
+  if (userID === req.body.data.userid) {
+    const sqlQuery = `
+     UPDATE activities
+    SET thursday_status = NOT thursday_status
+    Where  "user_id" = $1 AND activities.id = $2;
+    `;
+    pool
+      .query(sqlQuery, [userID, activitesID])
+      .then((dbRes) => {
+        console.log("Monday status updated successfully");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+// update status of friday 
+router.put("/update-status-friday", rejectUnauthenticated, (req, res) => {
+  const friday_status = req.body.data.friday_status;
+  const userID = req.user.id;
+  const activitesID = req.body.data.activitiesid;
+
+  if (userID === req.body.data.userid) {
+    const sqlQuery = `
+     UPDATE activities
+    SET friday_status = NOT friday_status
+    Where  "user_id" = $1 AND activities.id = $2;
+    `;
+    pool
+      .query(sqlQuery, [userID, activitesID])
+      .then((dbRes) => {
+        console.log("Monday status updated successfully");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+// update status of saturday 
+router.put("/update-status-saturday", rejectUnauthenticated, (req, res) => {
+  const saturday_status = req.body.data.saturday_status;
+  const userID = req.user.id;
+  const activitesID = req.body.data.activitiesid;
+
+  if (userID === req.body.data.userid) {
+    const sqlQuery = `
+     UPDATE activities
+    SET saturday_status = NOT saturday_status
+    Where  "user_id" = $1 AND activities.id = $2;
+    `;
+    pool
+      .query(sqlQuery, [userID, activitesID])
+      .then((dbRes) => {
+        console.log("Monday status updated successfully");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+// update status of sunday 
+router.put("/update-status-sunday", rejectUnauthenticated, (req, res) => {
+  const sunday_status = req.body.data.sunday_status;
+  const userID = req.user.id;
+  const activitesID = req.body.data.activitiesid;
+
+  if (userID === req.body.data.userid) {
+    const sqlQuery = `
+     UPDATE activities
+    SET sunday_status = NOT sunday_status
+    Where  "user_id" = $1 AND activities.id = $2;
+    `;
+    pool
+      .query(sqlQuery, [userID, activitesID])
+      .then((dbRes) => {
+        console.log("Monday status updated successfully");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+
 // delete the whole row
 // ` DELETE FROM "user_activities"
 //     WHERE "user_id" = $1 -- Specify the user_id for whom you want to delete the comment

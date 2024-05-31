@@ -116,6 +116,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+//like button
 router.put("/", rejectUnauthenticated, (req, res) => {
   const newprogress = req.body.data.progress;
   console.log("value of the progress", newprogress);
@@ -124,13 +125,13 @@ router.put("/", rejectUnauthenticated, (req, res) => {
   const activitesID = req.body.data.activitiesid;
   console.log("value of the ActivitesID", activitesID);
 
-  if (userID === req.body.data.userid) {
+  // if (userID === req.body.data.userid) {
     const sqlQuery = ` UPDATE "user_activities" 
   SET progress = $1
-  WHERE user_activities.user_id = $2 AND user_activities.activities_id = $3;
+  WHERE user_activities.activities_id = $2;
   `;
     pool
-      .query(sqlQuery, [newprogress, userID, activitesID])
+      .query(sqlQuery, [newprogress, activitesID])
 
       .then((dbRes) => {
         console.log("put worked in /api/actvitiesRouter!");
@@ -140,9 +141,9 @@ router.put("/", rejectUnauthenticated, (req, res) => {
         console.log("Error in PUT /api/actvitiesRouter ", dbErr);
         res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
       });
-  } else {
-    res.sendStatus(401);
-  } //401 unauthorized
+  // } else {
+  //   res.sendStatus(401);
+  // } //401 unauthorized
 });
 
 //delete route
@@ -431,10 +432,43 @@ router.put("/update-status-sunday", rejectUnauthenticated, (req, res) => {
   } //401 unauthorized
 });
 
+
 // delete the whole row
 // ` DELETE FROM "user_activities"
 //     WHERE "user_id" = $1 -- Specify the user_id for whom you want to delete the comment
 //     AND "activities_id" = $2; -- Specify the activities_id for which you want to delete the comment
 //   `
+
+
+// update progress for only tthe user logged in 👇
+// router.put("/", rejectUnauthenticated, (req, res) => {
+//   const newprogress = req.body.data.progress;
+//   console.log("value of the progress", newprogress);
+//   const userID = req.user.id;
+//   console.log("value of the USERID", userID);
+//   const activitesID = req.body.data.activitiesid;
+//   console.log("value of the ActivitesID", activitesID);
+
+//   if (userID === req.body.data.userid) {
+//     const sqlQuery = ` UPDATE "user_activities" 
+//   SET progress = $1
+//   WHERE user_activities.user_id = $2 AND user_activities.activities_id = $3;
+//   `;
+//     pool
+//       .query(sqlQuery, [newprogress, userID, activitesID])
+
+//       .then((dbRes) => {
+//         console.log("put worked in /api/actvitiesRouter!");
+//         res.sendStatus(201); // Send HTTP status code 201 (Created)
+//       })
+//       .catch((dbErr) => {
+//         console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+//         res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+//       });
+//   } else {
+//     res.sendStatus(401);
+//   } //401 unauthorized
+// });
+
 
 module.exports = router;

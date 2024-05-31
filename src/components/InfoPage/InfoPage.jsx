@@ -28,6 +28,8 @@ function InfoPage() {
   //dispatching the array of the user to saga and add 1 to value variable progress
   const handleProgress = (item) => {
     item.progress += 1;
+
+    console.log('here is the progress', item.progress)
     dispatch({
       type: "UPDATE_PROGRESS",
       payload: item,
@@ -115,7 +117,7 @@ function InfoPage() {
               <br />
             </span>
            <Container>
-          <Grid container  spacing = {3}>
+          <Grid   containerspacing = {3}>
            <Card>
             <CardHeader 
 

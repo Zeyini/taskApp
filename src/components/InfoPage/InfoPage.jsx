@@ -1,6 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { Grid,Card, CardContent,Typography,CardHeader,IconButton,Container} from '@mui/material';
+import { DeleteOutlined, Rowing } from "@mui/icons-material";
+
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -31,6 +34,7 @@ function InfoPage() {
     });
     console.log(item.progress);
   };
+
   const handledelete = (item) => {
     dispatch({
       type: "DELETE NOTE",
@@ -39,8 +43,17 @@ function InfoPage() {
     console.log(item.progress);
   };
 
+  const deleteCard = (item) => {
+    dispatch({
+      type: "DELETE CARD",
+      payload: item,
+    });
+    console.log(item.progress);
+  };
+
 // dispach the object to saga to upate status
   const toggleStatusM = (item) => {
+    console.log('CURRENT STATUS',item.monday_status)
     dispatch({
       type: 'TOGGLE_STATUS_M',
       payload: item     
@@ -83,8 +96,10 @@ function InfoPage() {
     });
   };
 
+  
   return (
-    <div className="container">
+    <>
+    <div>
       <p></p>
       <h1>You got this </h1>
       {/* render .MAP code below  */}
@@ -99,39 +114,61 @@ function InfoPage() {
               {/* {console.log(JSON.stringify(item))} */}
               <br />
             </span>
+           <Container>
+          <Grid container  spacing = {3}>
+           <Card>
+            <CardHeader 
+
+            // this is a button to delete card👇
+            action={
+              <IconButton onClick={() => deleteCard(item)}>
+                <DeleteOutlined />
+              </IconButton>
+            }
+            title={item.username}
+            subheader={item.activityname}
+            
+            />
+           
             <div>
-              <div> activity id = {item.activitiesid}</div>
-              <div>{item.username}</div>
-              <div>{item.activityname}</div>
-
-              <div>{item.date}</div>
+              {/* <div> activity id = {item.activitiesid}</div> */}
+              {/* <div>{item.username}</div> */}
+              {/* <div>{item.activityname}</div> */}
+              {/* <div>{item.date}</div> */}
               <div>{item.completion_status}</div>
- 
-              <div onClick={() => toggleStatusM(item)}> <span>Monday Status: </span>
-              {item.monday_status ? 'Incomplete' : 'Completed'}
-              </div>
-               {/* {console.log(JSON.stringify(item.monday_status ))} */}
-      <div onClick={() => toggleStatusT(item)} >Tuesday Status: {item.tuesday_status ? 'Completed' : 'Incomplete'}</div>
-      <div onClick={() => toggleStatusW(item)} >Wednesday Status: {item.wednesday_status ? 'Completed' : 'Incomplete'}</div>
-      <div onClick={() => toggleStatusTh(item)} >Thursday Status: {item.thursday_status ? 'Completed' : 'Incomplete'}</div>
-      <div onClick={() => toggleStatusF(item)} >Friday Status: {item.friday_status ? 'Completed' : 'Incomplete'}</div>
-      <div onClick={() => toggleStatusSa(item)} >Saturday Status: {item.saturday_status ? 'Completed' : 'Incomplete'}</div>
-      <div onClick={() => changeStatusSu(item)} >Sunday Status: {item.sunday_status ? 'Completed' : 'Incomplete'}
-              
+ <div style={{ display: 'flex', flexDirection: 'row' }}>
 
+      <div onClick={() => toggleStatusM(item)}> <div>Monday</div> {item.monday_status ? '' : '✔️'} </div>
+               {/* {console.log(JSON.stringify(item.monday_status ))} */}
+      <div onClick={() => toggleStatusT(item)} >Tuesday {item.tuesday_status ? '' : '✔️'}</div>
+      <div onClick={() => toggleStatusW(item)} >Wednesday  {item.wednesday_status ? '' : '✔️'}</div>
+      <div onClick={() => toggleStatusTh(item)} >Thursday {item.thursday_status ? '' : '✔️'}</div>
+      <div onClick={() => toggleStatusF(item)} >Friday {item.friday_status ? '' : '✔️'}</div>
+      <div onClick={() => toggleStatusSa(item)} >Saturday {item.saturday_status ? '' : '✔️'}</div>
+      <div onClick={() => changeStatusSu(item)} >Sunday Status {item.sunday_status ? '' : '✔️'}
+              
+</div>
       <div>{item.notes}</div>
               <button onClick={() => handledelete(item)}>delete</button>
               </div>
               <div onClick={() => handleProgress(item)}>{item.progress}</div>                   
             </div>
+
+            </Card>
+            </Grid>
+           </Container>
           </div>
 
           
         ))}
       </div>
-   
+    
     </div>
+
+  </>
   );
+
+                                        
 }
 
 export default InfoPage;

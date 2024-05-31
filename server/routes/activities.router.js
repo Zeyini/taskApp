@@ -22,6 +22,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   user_activities.date,
   user_activities.notes,
   user_activities.completion_status,
+  user_activities.activities_id,
   user_activities.progress,
   activities.monday_status,
   activities.tuesday_status,
@@ -35,7 +36,7 @@ FROM
 LEFT JOIN 
   user_activities ON "user".id = user_activities.user_id
 LEFT JOIN 
-  activities ON user_activities.actvities_id = activities.id
+  activities ON user_activities.activities_id = activities.id
   ORDER BY user_activities.id; `;
   pool
     .query(sqlText)
@@ -93,7 +94,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       const activityNotes = req.body.data.Actvitynotes; // value of note beign sent to db.
 
       const insertUserActivitiesQuery = `
-    INSERT INTO "user_activities" ("user_id", "actvities_id", "notes", "date", "completion_status", "progress")
+    INSERT INTO "user_activities" ("user_id", "activities_id", "notes", "date", "completion_status", "progress")
     VALUES ($1, $2, $3, CURRENT_DATE, false, 0)
   `;
 
@@ -126,7 +127,7 @@ router.put("/", rejectUnauthenticated, (req, res) => {
   if (userID === req.body.data.userid) {
     const sqlQuery = ` UPDATE "user_activities" 
   SET progress = $1
-  WHERE user_activities.user_id = $2 AND user_activities.actvities_id = $3;
+  WHERE user_activities.user_id = $2 AND user_activities.activities_id = $3;
   `;
     pool
       .query(sqlQuery, [newprogress, userID, activitesID])
@@ -174,7 +175,55 @@ router.delete("/", rejectUnauthenticated, (req, res) => {
     const sqlQuery = `UPDATE "user_activities"
     SET "notes" = NULL
     WHERE "user_id" = $1
-    AND "actvities_id" = $2;`
+    AND "activities_id" = $2;`
+    pool
+      .query(sqlQuery, [userID, activitesID])
+
+      .then((dbRes) => {
+        console.log("put worked in /api/actvitiesRouter!");
+        res.sendStatus(201); // Send HTTP status code 201 (Created)
+      })
+      .catch((dbErr) => {
+        console.log("Error in PUT /api/actvitiesRouter ", dbErr);
+        res.sendStatus(500); // Send HTTP status code 500 (Internal Server Error)
+      });
+  } else {
+    res.sendStatus(401);
+  } //401 unauthorized
+});
+
+//delete card route
+router.delete("/deletecard", rejectUnauthenticated, (req, res) => {
+  const objectRecieved = req.body;
+  console.log("VALUE of the object", objectRecieved);
+  // terminal view:
+  // VALUE of the object {
+  //   id: 5,
+  //   userid: 14,
+  //   username: 'kuyu',
+  //   activityname: 'sing',
+  //   activitiesid: 5,
+  //   date: '2024-05-25T05:00:00.000Z',
+  //   notes: 'beyonce',
+  //   completion_status: false,
+  //   progress: 3
+  // }
+  // value of the USERID 14
+  const userID = req.user.id;
+  console.log("value of the USERID", userID); // terminal view: value of the USERID 14
+
+  const notes = req.body.notes;
+  console.log("VALUE of the data!", notes); // terminal view: VALUE of the data! happy progress
+  
+  const activitesID = req.body.activitiesid;
+  console.log("value of the ActivitesID", activitesID);
+  
+  if (userID === req.body.userid) {
+    const sqlQuery = ` DELETE FROM "user_activities"
+    WHERE "user_id" = $1 
+    AND "activities_id" = $2; 
+  `
+
     pool
       .query(sqlQuery, [userID, activitesID])
 
@@ -385,7 +434,7 @@ router.put("/update-status-sunday", rejectUnauthenticated, (req, res) => {
 // delete the whole row
 // ` DELETE FROM "user_activities"
 //     WHERE "user_id" = $1 -- Specify the user_id for whom you want to delete the comment
-//     AND "actvities_id" = $2; -- Specify the activities_id for which you want to delete the comment
+//     AND "activities_id" = $2; -- Specify the activities_id for which you want to delete the comment
 //   `
 
 module.exports = router;

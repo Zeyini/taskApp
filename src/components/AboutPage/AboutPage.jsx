@@ -9,8 +9,10 @@ function AboutPage() {
   return (
     <div className="container">
       <div>
-        <p>This about page is for anyone to read!</p>
-        <p> Hi friends, thank you fall for being here</p>
+        <p>Have you ever been at the library and studied an extra 5 minutes because the environment encouraged you?
+           Or at the gym, walking a few extra minutes on the treadmill because you felt encouraged by your environment? 
+           Well, this app will give you the virtual social environment to hold you accountable to your goals. Use this app to be goal-oriented and socially connected.</p>
+        
       </div>
     </div>
   );

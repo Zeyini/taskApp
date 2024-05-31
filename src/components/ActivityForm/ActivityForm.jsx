@@ -23,8 +23,8 @@ function ActivityForm() {
 
   return (
     <div className="container">
-      <h2>form page</h2>
-      <p>Your ID is: {user.id}</p>
+      <h2> Submit Activity </h2>
+      {/* <p>Your ID is: {user.id}</p> */}
 
       {/* to be moved to a form componet  👇*/}
 <form onSubmit={handleAddItem}>
@@ -36,7 +36,7 @@ Activity Notes:
            onChange={(e) => setActvitynotes(e.target.value)}
            value={Actvitynotes}/>
            </label>
-
+<br></br>
 
            <label>
  Activity Name:
@@ -45,6 +45,7 @@ Activity Notes:
            onChange={(e) => setActivityname(e.target.value)}
            value={Activityname}/>
            </label>
+           <br></br>
     <button type="submit">add item</button>
     </form>
     </div>

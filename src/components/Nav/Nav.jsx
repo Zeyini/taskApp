@@ -32,9 +32,9 @@ function Nav() {
               Dashboard 
             </Link>
 
-            <Link className="navLink" to="/activityform">
-              Activity 
-            </Link>
+            {/* <Link className="navLink" to="/activityform">
+              Activity  */}
+            {/* </Link> */}
 
             <Link className="navLink" to="/tasklist">
             Profile

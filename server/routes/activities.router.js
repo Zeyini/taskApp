@@ -37,7 +37,7 @@ LEFT JOIN
   user_activities ON "user".id = user_activities.user_id
 LEFT JOIN 
   activities ON user_activities.activities_id = activities.id
-  ORDER BY user_activities.id; `;
+  ORDER BY user_activities.id;`;
   pool
     .query(sqlText)
     .then((dbRes) => {

@@ -6,16 +6,17 @@ import { DeleteOutlined, } from "@mui/icons-material";
 import Box from '@mui/material/Box';
 import { Favorite as FavoriteIcon } from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import { useHistory } from 'react-router-dom';
+import { yellow } from "@mui/material/colors";
 
 
 
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
 
 function InfoPage() {
+
   useEffect(() => {
     getActivities(); // on mount get data from db!
   }, []);
@@ -102,6 +103,11 @@ function InfoPage() {
       payload: item     
     });
   };
+  const history = useHistory();
+  const goToform = () => {
+    history.push('/activityform');
+  };
+
 
   
   return (
@@ -121,14 +127,19 @@ function InfoPage() {
               <br />
             </span>
             <Container>
-  <Grid container spacing={3} style={{ marginLeft: '.0cm'}}>
+  <Grid container spacing={3} style={{ marginLeft: '-.4cm'}}>
     <Card>
     <Box position="relative">
         <Box position="absolute" top={0} right={0} zIndex={999}>
           <IconButton onClick={() => deleteCard(item)}>
             <DeleteOutlined />
           </IconButton>
+          <Fab size="small" color="gray" aria-label="add" onClick={() => goToform()}>
+        <AddIcon />
+      </Fab>
+      
         </Box>
+
       </Box>
       <CardHeader style={{ width: '50px', height: '50px', borderRadius: '100%', backgroundColor: "floralwhite"}}
         title={item.username}
@@ -139,13 +150,13 @@ function InfoPage() {
         <div>{item.completion_status}</div>
         {/* Status elements */}
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <div onClick={() => toggleStatusM(item)}> <div style={{ marginRight: '16px' , fontSize:"25px"}}> <Box boxShadow={1}>Mon</Box> </div>{item.monday_status ? '' : '✔️'} </div>
-          <div onClick={() => toggleStatusT(item)}> <div style={{ marginRight: '16px',fontSize:"25px"}}> <Box boxShadow={1}>Tue</Box></div> {item.tuesday_status ? '' : '✔️'} </div>
-          <div onClick={() => toggleStatusW(item)}> <div style={{ marginRight: '16px' ,fontSize:"25px"}}><Box boxShadow={1}>Wed</Box></div> {item.wednesday_status ? '' : '✔️'} </div>
-          <div onClick={() => toggleStatusTh(item)}> <div style={{ marginRight: '16px',fontSize:"25px"}}> <Box boxShadow={1}>Thu</Box></div> {item.thursday_status ? '' : '✔️'} </div>
-          <div onClick={() => toggleStatusF(item)}> <div style={{ marginRight: '16px' ,fontSize:"25px"}}> <Box boxShadow={1}>Fri</Box></div> {item.friday_status ? '' : '✔️'} </div>
-          <div onClick={() => toggleStatusSa(item)}> <div style={{ marginRight: '16px',fontSize:"25px" }}> <Box boxShadow={1}>Sat</Box></div> {item.saturday_status ? '' : '✔️'} </div>
-          <div onClick={() => changeStatusSu(item)}> <div style={{ marginRight: '16px',fontSize:"25px"}}> <Box boxShadow={1}>Sun</Box></div> {item.sunday_status ? '' : '✔️'} </div>
+          <div onClick={() => toggleStatusM(item)}> <div style={{ marginRight: '16px' , fontSize:"25px"}}> <Box boxShadow={1}>Mon</Box> </div> <div style={{margin: '8px'}}> {item.monday_status ? '✅' : ''} </div> </div>
+          <div onClick={() => toggleStatusT(item)}> <div style={{ marginRight: '16px',fontSize:"25px"}}> <Box boxShadow={1}>Tue</Box></div> <div style={{margin: '8px'}}> {item.tuesday_status ? '✅' : ''} </div></div>
+          <div onClick={() => toggleStatusW(item)}> <div style={{ marginRight: '16px' ,fontSize:"25px"}}><Box boxShadow={1}>Wed</Box></div> <div style={{margin: '8px'}}>{item.wednesday_status ? '✅' : ''} </div></div>
+          <div onClick={() => toggleStatusTh(item)}> <div style={{ marginRight: '16px',fontSize:"25px"}}> <Box boxShadow={1}>Thu</Box></div> <div style={{margin: '8px'}}>{item.thursday_status ? '✅' : ''} </div></div>
+          <div onClick={() => toggleStatusF(item)}> <div style={{ marginRight: '16px' ,fontSize:"25px"}}> <Box boxShadow={1}>Fri</Box></div> <div style={{margin: '8px'}}>{item.friday_status ? '✅' : ''} </div></div>
+          <div onClick={() => toggleStatusSa(item)}> <div style={{ marginRight: '16px',fontSize:"25px" }}> <Box boxShadow={1}>Sat</Box></div> <div style={{margin: '8px'}}>{item.saturday_status ? '✅' : ''} </div> </div>
+          <div onClick={() => changeStatusSu(item)}> <div style={{ marginRight: '16px',fontSize:"25px"}}> <Box boxShadow={1}>Sun</Box></div> <div style={{margin: '8px'}}>{item.sunday_status ? '✅' : ''} </div></div>
         </div>
 
         {/* Additional information */}
@@ -183,7 +194,6 @@ function InfoPage() {
           
         ))}
       </div>
-    
     </div>
 
   </>

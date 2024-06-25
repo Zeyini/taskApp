@@ -16,6 +16,8 @@ function Tasklist() {
   const activitiesItems = useSelector((store) => store.activities.activities);
 console.log('ACTIVITES HERE',activitiesItems)
 console.log('USER HERE',user)
+
+
   return (
     <>
       {activitiesItems.map((item) => {

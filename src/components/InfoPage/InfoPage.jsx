@@ -247,7 +247,7 @@ function InfoPage() {
                           <Typography variant="h7">
                             <TextField
                               id="standard-basic"
-                              label="Comment"
+                              label="Comments"
                               variant="standard"
                             />
                             <div> {item.notes}</div>
